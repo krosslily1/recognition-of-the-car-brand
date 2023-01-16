@@ -1,0 +1,18 @@
+async function recognizeCarBrand(imageUrl) {
+    // Load the OpenCV.js library
+    await cv.ready;
+
+    // Load the image from the provided URL
+    const img = await cv.imread(imageUrl);
+
+    // Perform image recognition on the car brand
+    const classifier = new cv.CascadeClassifier(cv.HAAR_CASCADE_FRONTALFACE_ALT2);
+    const { objects, numDetections } = classifier.detectMultiScale(img.bgrToGray());
+
+    // Return the recognized car brand
+    if (numDetections.length > 0) {
+        return objects[0].brand;
+    } else {
+        return "unable to recognize car brand";
+    }
+}
